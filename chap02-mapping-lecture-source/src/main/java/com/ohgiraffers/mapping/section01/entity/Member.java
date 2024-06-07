@@ -12,14 +12,17 @@ import java.time.LocalDateTime;
 *   - 저장할 필드에 final 을 사용하면 안된다.
 *  */
 @Entity(name = "entityMember")
-@Table(name = "tbl_member")
+@Table(name = "tbl_member" , uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"member_id","phone"})
+})
 public class Member {
 
     /* 필기.
     *   @Column 속성
     *   - name : 매핑할 테이블의 컬럼 이름
     *   - nullable : null 값 허용여부 설정 = NOTNULL 제약 조건에 해당한다. default(true)
-    *   - unique : 컬럼의 유일성을 제약 조건
+    *   - unique : 컬럼의 유일성을 제약 조건 , 두 개 이상의 컬럼에 unique 제약 조건을 설정하기 위해서는
+    *               @Table 어노테이션 속성에 uniqueConstrains 속성을 추가해야 한다.
     *   - columnDefinition : 직접 컬럼의 DDL 을 지정할 수 있다.
     *   - length : 문자열의 길이 = String 타입에서만 사용 default(255)
     * */
@@ -38,7 +41,7 @@ public class Member {
     @Column(name = "member_name")
     private String memberName;
 
-    @Column(name = "phone")
+    @Column(name = "phone" ,unique = true )
     private String phone;
 
     @Column(name = "address" , length = 900)
@@ -47,8 +50,32 @@ public class Member {
     @Column(name = "enroll_date")
     private LocalDateTime enrollDate;
 
-    // enum 타입 쓸 떄 - 딱 정해진 값 ex) 권한, 성별등등
+    /* 필기.
+    *   @Enumerated
+    *   - enum 타입을 매핑하기 위해 사용한다.
+    *   - ORDINAL : Enum 타입을 순서로 매핑
+    *               장점 : 데이터베이스에 저장되는 데이터 크기가 작음
+    *               단점 : 알아보기 쉽지 않다.
+    *   - STRING : Enum 타입을 문자열로 매핑
+    * */
     @Column(name = "member_role")
+    @Enumerated(EnumType.STRING)
     private MemberRole  memberRole;
+
+    @Column(name = "status" , columnDefinition = "char(1) default 'Y'")
+    private String status;
+
+    protected Member(){}
+
+    public Member(String memberId, String memberPwd, String memberName, String phone, String address, LocalDateTime enrollDate, MemberRole memberRole, String status) {
+        this.memberId = memberId;
+        this.memberPwd = memberPwd;
+        this.memberName = memberName;
+        this.phone = phone;
+        this.address = address;
+        this.enrollDate = enrollDate;
+        this.memberRole = memberRole;
+        this.status = status;
+    }
 
 }
