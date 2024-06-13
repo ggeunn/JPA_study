@@ -21,7 +21,7 @@ public class Pagenation {
         int endPage = startPage + defaultButtonCount - 1;
 
         /* 실제 총 페이지가 endPage 보다 작으면 endPage 를 총 페이지로 설정 */
-        if(page.getTotalElements() < endPage){
+        if(page.getTotalPages() < endPage){
             endPage = page.getTotalPages();
         }
 
