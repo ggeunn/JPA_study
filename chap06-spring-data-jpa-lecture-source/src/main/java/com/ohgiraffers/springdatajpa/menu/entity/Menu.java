@@ -1,16 +1,15 @@
-package com.ohgiraffers.nativequery.section01.simple;
+package com.ohgiraffers.springdatajpa.menu.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-@Entity(name = "section01Menu")
+@Entity
 @Table(name = "tbl_menu")
 public class Menu {
 
+
     @Id
     @Column(name = "menu_code")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int menuCode;
 
     @Column(name = "menu_name")
@@ -25,7 +24,7 @@ public class Menu {
     @Column(name = "orderable_status")
     private String orderableStatus;
 
-    protected Menu() {}
+    protected Menu(){}
 
     public Menu(int menuCode, String menuName, int menuPrice, int categoryCode, String orderableStatus) {
         this.menuCode = menuCode;
@@ -62,7 +61,7 @@ public class Menu {
                 ", menuName='" + menuName + '\'' +
                 ", menuPrice=" + menuPrice +
                 ", categoryCode=" + categoryCode +
-                ", orderableStatus='" + orderableStatus + '\'' +
+                ", orderableStatus=" + orderableStatus +
                 '}';
     }
 }
