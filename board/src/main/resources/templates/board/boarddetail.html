@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .inline-text {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+<h1>게시 글</h1>
+<h3>게시글 번호: <span th:text="${board.boardCode}" class="inline-text"></span></h3>
+<h3>사용자 이름: <span th:text="${board.member.memberName}" class="inline-text"></span></h3>
+<h3>제목: <span th:text="${board.boardTitle}" class="inline-text"></span></h3>
+<h3>내용: <span th:text="${board.boardContent}" class="inline-text"></span></h3>
+<button th:onclick="'modifyBoard(\''+${board.boardCode}+'\')'">수정</button>
+<button th:onclick ="'deleteBoard(\'' + ${board.boardCode} + '\')'">삭제 하기</button>
+<button onclick="location.href='/board/list'">뒤로 가기</button>
+</body>
+
+<script>
+    function deleteBoard(boardCode){
+        location.href = '/board/delete?boardCode=' + boardCode;
+    }
+    function modifyBoard(boardCode){
+        location.href='/board/modify?boardCode='+boardCode;
+    }
+</script>
+</html>

@@ -1,9 +1,13 @@
 package com.ohgiraffers.springdatajpa.menu.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 @Entity
 @Table(name = "tbl_menu")
+/*  2. @Builder lombok 라이브러리에서 빌더 사용 */
+//@Builder(toBuilder = true)
+
 public class Menu {
 
 
@@ -23,6 +27,30 @@ public class Menu {
 
     @Column(name = "orderable_status")
     private String orderableStatus;
+
+    /* 3. Entity 클래스 내부에서 builder 패턴 구현 */
+    public Menu menuName(String var){
+        this.menuName = var;
+        return this;
+    }
+    public Menu menuPrice(int var){
+        this.menuPrice = var;
+        return this;
+    }
+    public Menu categoryCode(int var){
+        this.categoryCode = var;
+        return this;
+    }
+
+    public Menu orderableStatus(String var){
+        this.orderableStatus = var;
+        return this;
+    }
+
+    public Menu builder(){
+        return new Menu(menuCode, menuName, menuPrice, categoryCode, orderableStatus);
+    }
+
 
     protected Menu(){}
 
@@ -64,4 +92,10 @@ public class Menu {
                 ", orderableStatus=" + orderableStatus +
                 '}';
     }
+
+//    public void setMenuName(String menuName) {
+//        this.menuName = menuName;
+//    }
+
+
 }

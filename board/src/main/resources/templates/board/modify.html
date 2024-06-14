@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>수정하기</h1>
+    <form action="/board/modify" method="post">
+        <label>게시글 번호: </label><input th:value="${board.boardCode}" name="boardCode" readonly><br>
+        <label>사용자 이름: </label><input type="text" name="memberName" th:value="${board.member.memberName}" readonly><br>
+        <label>제목: </label><input type="text" name="boardTitle" th:value="${board.boardTitle}"><br>
+        <label>내용: </label><input type="text" name="boardContent" th:value="${board.boardContent}"><br>
+        <button type="submit">수정</button>
+    </form>
+</body>
+</html>
