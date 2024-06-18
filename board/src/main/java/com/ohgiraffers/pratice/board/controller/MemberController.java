@@ -5,14 +5,11 @@ import com.ohgiraffers.pratice.board.model.dto.MemberDTO;
 import com.ohgiraffers.pratice.board.model.service.MemberService;
 import jakarta.persistence.Column;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/member")
+@RestController
 public class MemberController {
 
     private final MemberService service;
@@ -25,12 +22,12 @@ public class MemberController {
     @GetMapping("/regist")
     public void registPage() {}
 
-    @PostMapping("/regist")
-    public String regist(MemberDTO newMember) {
+    @PostMapping("/member")
+    public ResponseEntity<?> regist(@RequestBody MemberDTO newMember) {
 
         service.memberRegist(newMember);
 
-        return "main/main";
+        return ResponseEntity.ok().build();
     }
 
 
