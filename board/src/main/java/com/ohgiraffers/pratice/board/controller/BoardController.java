@@ -79,6 +79,7 @@ public class BoardController {
                 .body(new ResponseMessage(200,"조회 성공",responseMap));
 
     }
+
 //    @GetMapping("/delete")
 //    public String deleteBoard(@RequestParam int boardCode){
 //
