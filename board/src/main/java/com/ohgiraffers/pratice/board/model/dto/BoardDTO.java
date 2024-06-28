@@ -1,10 +1,20 @@
 package com.ohgiraffers.pratice.board.model.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "Board 관련 DTO")
 public class BoardDTO {
 
+    @Schema(description = "게시글정보(PK)")
     private int boardCode;
+    
+    @Schema(description = "게시글 제목")
     private String boardTitle;
+    
+    @Schema(description = "게시물 내용")
     private String boardContent;
+    
+    @Schema(description = "회원정보")
     private MemberDTO member;
 
     public BoardDTO() {}

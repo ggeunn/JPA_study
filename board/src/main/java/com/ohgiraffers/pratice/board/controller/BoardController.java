@@ -5,6 +5,11 @@ import com.ohgiraffers.pratice.board.model.dto.MemberDTO;
 import com.ohgiraffers.pratice.board.model.dto.ResponseMessage;
 import com.ohgiraffers.pratice.board.model.service.BoardService;
 import com.ohgiraffers.pratice.board.model.service.MemberService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -16,7 +21,9 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+@Tag(name = "Board 기능)")
 @RestController
 public class BoardController {
 
@@ -31,6 +38,7 @@ public class BoardController {
     }
 
     /* 전체 조회 */
+    @Operation(summary = "전체 게시글 조회",description = "우리 사이트의 전체 게시글 목록 조회")
     @GetMapping("/board")
     public ResponseEntity<ResponseMessage> list() {
 
@@ -47,10 +55,10 @@ public class BoardController {
 
     }
 
-//    @GetMapping("/regist")
-//    public void registPage(){}
+
 
     /* 등록 */
+    @Operation(summary = "신규 게시글 등록")
     @PostMapping("/board")
     public ResponseEntity<?> registBoard(@RequestBody Map<String,Object> newBoard){
 
@@ -64,6 +72,8 @@ public class BoardController {
     }
 
     /* 상세보기 */
+    @Operation(summary = "게시글 번호로 게시글 조회", description = "게시글 번호를 통해 해당되는 게시글을 조회한다."
+            , parameters = {@Parameter(name = "boardCode",description = "사용자 화면에서 넘어오는 board 의 pk")} )
     @GetMapping("/board/{boardCode}")
     public ResponseEntity<ResponseMessage> boardDetail(@PathVariable int boardCode){
 
@@ -80,26 +90,25 @@ public class BoardController {
 
     }
 
-//    @GetMapping("/delete")
-//    public String deleteBoard(@RequestParam int boardCode){
-//
-//        System.out.println("boardCode = " + boardCode);
-//        service.deleteBoard(boardCode);
-//
-//        return "redirect:/board/list";
-//    }
 
-//    @GetMapping("/modify")
-//    public String modifyBoardPage(@RequestParam int boardCode, Model model){
-//
-//        BoardDTO board = service.findByboardCode(boardCode);
-//
-//        model.addAttribute("board", board);
-//
-//        return "/board/modify";
-//    }
+    @Operation(summary = "게식글 삭제")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "게시글 삭제 성공"),
+            @ApiResponse(responseCode = "400", description = "잘못된 입력 된 파라미터")
+    })
+    @DeleteMapping("/board/{boardCode}")
+    public ResponseEntity<?> remodveBoard(@PathVariable int boardCode){
+
+        BoardDTO board = service.findByboardCode(boardCode);
+        service.remove(board);
+
+        return ResponseEntity.noContent().build();
+
+    }
+
 
     /* 수정 */
+    @Operation(summary = "게시글 수정")
     @PutMapping("/board/{boardCode}")
     public ResponseEntity<?> modifyBoard(@PathVariable int boardCode, @RequestBody BoardDTO modifyBoard){
 

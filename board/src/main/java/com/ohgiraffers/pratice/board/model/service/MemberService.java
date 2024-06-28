@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class MemberService {
 
@@ -41,5 +43,12 @@ public class MemberService {
         System.out.println("memberCode = " + memberCode);
 
         return modelMapper.map(memberCode, MemberDTO.class);
+    }
+
+    public List<MemberDTO> findall() {
+
+        List<Member> members = repository.findAll();
+
+        return modelMapper.map(members, List.class);
     }
 }

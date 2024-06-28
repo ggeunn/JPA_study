@@ -1,10 +1,20 @@
 package com.ohgiraffers.pratice.board.model.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "회원 관련 DTO")
 public class MemberDTO {
 
+    @Schema(description = "회원 정보(pk)")
     private int memberCode;
+
+    @Schema(description = "회원 이름")
     private String memberName;
+    
+    @Schema(description = "회원 아이디")
     private String memberId;
+    
+    @Schema(description = "회원 비밀번호")
     private String memberPwd;
 
     public MemberDTO() {}

@@ -54,11 +54,7 @@ public class BoardService {
         return modelMapper.map(board,BoardDTO.class);
     }
 
-    @Transactional
-    public void deleteBoard(int boardCode) {
 
-        repository.deleteByboardCode(boardCode);
-    }
 
     @Transactional
     public void modifyBoard(int boardCode, String boardTitle, String boardContent) {
@@ -68,6 +64,13 @@ public class BoardService {
         board = board.toBuilder().boardTitle(boardTitle).boardContent(boardContent).build();
 
         repository.save(board);
+
+    }
+
+    @Transactional
+    public void remove(BoardDTO board) {
+        Board boardEntity = repository.findByboardCode(board.getBoardCode());
+        repository.delete(boardEntity);
 
     }
 }
