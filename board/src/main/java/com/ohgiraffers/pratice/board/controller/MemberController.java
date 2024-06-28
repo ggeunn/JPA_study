@@ -31,7 +31,7 @@ public class MemberController {
     /* 전체 유저 조회 */
     @Operation(summary = "전체 유저 조회",description = "우리 사이트의 전체 유저 목록 조회")
     @GetMapping("/member")
-    public ResponseEntity<ResponseMessage> list() {
+    public ResponseEntity<ResponseMessage> memberList() {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
@@ -48,7 +48,7 @@ public class MemberController {
 
     @Operation(summary = "신규 회원 등록")
     @PostMapping("/member")
-    public ResponseEntity<?> regist(@RequestBody MemberDTO newMember) {
+    public ResponseEntity<?> registMember(@RequestBody MemberDTO newMember) {
 
         service.memberRegist(newMember);
 

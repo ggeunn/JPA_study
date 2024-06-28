@@ -40,7 +40,7 @@ public class BoardController {
     /* 전체 조회 */
     @Operation(summary = "전체 게시글 조회",description = "우리 사이트의 전체 게시글 목록 조회")
     @GetMapping("/board")
-    public ResponseEntity<ResponseMessage> list() {
+    public ResponseEntity<ResponseMessage> boardList() {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
